@@ -7,6 +7,7 @@ contract Person {
   uint8 public age; // accesible from outside contract, immutable except by internal function
   uint16 private height; // neither accesible from outside contract nor be udapted
   uint16 internal weight; // can be access with child contracts
+  string[] public skills;
 
   function updateAge(uint8 _age) public {
     age = _age;
@@ -18,12 +19,23 @@ contract Person {
     return weight;
   }
 
-  function getFullNameInStr(string memory _firstName, string memory _lastName)
-    public
-    pure
-    returns (string memory)
-  {
-    string memory fullName = string(abi.encodePacked(_firstName," ", _lastName));
+  function getFullNameInStr(
+    string memory _firstName,
+    string memory _lastName)
+  public pure returns (string memory){
+    
+    string memory fullName = string(
+      abi.encodePacked(_firstName, " ", _lastName)
+    );
+    
     return fullName;
   }
+
+  function pushSkills(string memory _skill) public {
+    skills.push(_skill);
+  }
+
+   function getSkills() public view returns (string[] memory) {
+        return skills;
+    }
 }
