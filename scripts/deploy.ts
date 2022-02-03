@@ -4,22 +4,23 @@
 // When running the script with `npx hardhat run <script>` you'll find the Hardhat
 // Runtime Environment's members available in the global scope.
 import { ethers } from "hardhat";
-import { Age, Age__factory as AgeFactory } from "../typechain";
+import { Person, Person__factory as PersonFactory } from "../typechain";
 
 async function main() {
-  const Age: AgeFactory = await ethers.getContractFactory("Age");
-  const age: Age = await Age.deploy();
-  await age.deployed();
+  const Person: PersonFactory = await ethers.getContractFactory("Person");
+  const person: Person = await Person.deploy();
+  await person.deployed();
 
-  const currentAge = await age.age();
-  console.log("Age is:", currentAge);
+  // const currentAge = await person.age();
+  // console.log("Age is:", currentAge);
 
-  const upadatedAge = await age.updateAge(23);
-
+  const upadatedAge = await person.updateAge(23);
   await upadatedAge.wait();
+  console.log("Age is:", await person.age());
 
-  console.log("Now age is:", await age.age());
-
+  const fullNameInStr = await person.getFullNameInStr("Hafeez", "Ghanchi");
+  // await fullNameInStr.wait();
+  console.log("Full name is:", await fullNameInStr);
 }
 
 // We recommend this pattern to be able to use async/await everywhere
