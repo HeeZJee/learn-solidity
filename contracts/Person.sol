@@ -8,6 +8,8 @@ contract Person {
   uint16 private height; // neither accesible from outside contract nor be udapted
   uint16 internal weight; // can be access with child contracts
   string[] public skills;
+  enum  Gender {MALE, FEMALE}
+  Gender public gender;
 
   function updateAge(uint8 _age) public {
     age = _age;
@@ -19,7 +21,7 @@ contract Person {
     return weight;
   }
 
-  function getFullNameInStr(
+  function getFullName(
     string memory _firstName,
     string memory _lastName)
   public pure returns (string memory){
@@ -38,4 +40,9 @@ contract Person {
    function getSkills() public view returns (string[] memory) {
         return skills;
     }
+
+    function setGender(Gender _gender) public {
+    gender = _gender == Gender.MALE ? Gender.MALE : Gender.FEMALE;
+    }
+
 }

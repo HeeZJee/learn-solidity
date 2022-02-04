@@ -18,13 +18,17 @@ async function main() {
   await upadatedAge.wait();
   console.log("Age is:", await person.age());
 
-  const fullNameInStr = await person.getFullNameInStr("Hafeez", "Ghanchi");
-  console.log("Full name is:", await fullNameInStr);
+  const fullName = await person.getFullName("Hafeez", "Ghanchi");
+  console.log("Full name is:", fullName);
 
   await person.pushSkills("Solidity");
   await person.pushSkills("TypeScript");
   const skills = await person.getSkills();
-  console.log("Skillset:", await skills);
+  console.log("Skillset:", skills);
+
+  await person.setGender(0);
+  const gender = await person.gender();
+  console.log("Gender:", gender);
 }
 
 // We recommend this pattern to be able to use async/await everywhere
