@@ -29,6 +29,23 @@ async function main() {
   await person.setGender(0);
   const gender = await person.gender();
   console.log("Gender:", gender);
+
+  await person.updateEducation(
+    "Karachi University",
+    "BS",
+    "Space Science",
+    2019,
+    true
+  );
+  await person.updateEducation(
+    "Stanford University",
+    "MS",
+    "Cybersecurity",
+    2022,
+    true
+  );
+  const educations = await person.getEducations();
+  console.log("Education:", educations);
 }
 
 // We recommend this pattern to be able to use async/await everywhere
