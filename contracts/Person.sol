@@ -22,7 +22,8 @@ contract Person {
     uint16 year;
     bool graduated;
   }
-  Education[] public educations;
+  // Education[] public educations;
+  mapping(uint16 => Education) public educations;
 
   function updateAge(uint8 _age) public {
     age = _age;
@@ -58,6 +59,7 @@ contract Person {
     gender = _gender == Gender.MALE ? Gender.MALE : Gender.FEMALE;
   }
 
+  uint16 private counter = 0; 
   function updateEducation(
     string memory _institute,
     string memory _program,
@@ -65,10 +67,20 @@ contract Person {
     uint16 _year,
     bool _graduated
   ) public {
-    educations.push(Education(_institute, _program, _major, _year, _graduated));
+    Education storage education = educations[counter++];
+    education.institute = _institute;
+    education.program = _program;
+    education.major = _major;
+    education.year = _year;
+    education.graduated = _graduated;
+    // educations.push(Education(_institute, _program, _major, _year, _graduated));
   }
 
   function getEducations() public view returns (Education[] memory) {
-    return educations;
+    Education[] memory _educations = new Education[](counter);
+    for (uint16 i = 0; i < counter; i++) {
+            _educations[i] = educations[i];
+        }
+    return _educations;
   }
 }
